@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  camunda:
+    image: camunda/camunda-bpm-platform:run-latest
+    ports:
+      - "8083:8080"
