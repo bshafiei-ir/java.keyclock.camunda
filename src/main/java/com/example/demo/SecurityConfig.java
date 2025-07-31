@@ -17,8 +17,9 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/api/public").permitAll()
+                .requestMatchers("/process/start").permitAll()
                 .requestMatchers("/api/private").authenticated()
-                .requestMatchers("/api/admin").hasRole("ADMIN")
+                .requestMatchers("/api/admin").hasRole("ADMIN")                
                 .anyRequest().permitAll()
             )
             .oauth2ResourceServer(oauth2 -> oauth2

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_08nled5" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.37.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.23.0">
+  <bpmn:process id="loanRequestProcess" name="Loan Request Process" isExecutable="true">
+    <bpmn:startEvent id="startEvent" name="Start Loan Request">
+      <bpmn:outgoing>Flow_0hwzdl4</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0hwzdl4" sourceRef="startEvent" targetRef="submitApplicationTask" />
+    <bpmn:userTask id="submitApplicationTask" name="Submit Loan Application" camunda:assignee="applicant">
+      <bpmn:incoming>Flow_0hwzdl4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0bch4zv</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="checkCreditService" name="Check Credit Score" camunda:delegateExpression="${checkCreditScoreDelegate}">
+      <bpmn:incoming>Flow_0bch4zv</bpmn:incoming>
+      <bpmn:outgoing>Flow_0h1ccaa</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0bch4zv" sourceRef="submitApplicationTask" targetRef="checkCreditService" />
+    <bpmn:userTask id="managerApprovalTask" name="Manager Approval" camunda:candidateGroups="managers">
+      <bpmn:incoming>Flow_0h1ccaa</bpmn:incoming>
+      <bpmn:outgoing>Flow_0t544aj</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0h1ccaa" sourceRef="checkCreditService" targetRef="managerApprovalTask" />
+    <bpmn:serviceTask id="disburseLoanService" name="Disburse Loan" camunda:delegateExpression="${disburseLoanDelegate}">
+      <bpmn:incoming>Flow_0t544aj</bpmn:incoming>
+      <bpmn:outgoing>Flow_0f7rmo1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0t544aj" sourceRef="managerApprovalTask" targetRef="disburseLoanService" />
+    <bpmn:endEvent id="Event_1vb23ax" name="End Loan Process">
+      <bpmn:incoming>Flow_0f7rmo1</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0f7rmo1" sourceRef="disburseLoanService" targetRef="Event_1vb23ax" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="loanRequestProcess">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="startEvent">
+        <dc:Bounds x="202" y="112" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="195" y="155" width="51" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_08fqc8e_di" bpmnElement="submitApplicationTask">
+        <dc:Bounds x="500" y="90" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1q36xzb_di" bpmnElement="checkCreditService">
+        <dc:Bounds x="650" y="90" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1jvyl62_di" bpmnElement="managerApprovalTask">
+        <dc:Bounds x="800" y="90" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1knc04y_di" bpmnElement="disburseLoanService">
+        <dc:Bounds x="950" y="90" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1vb23ax_di" bpmnElement="Event_1vb23ax">
+        <dc:Bounds x="1102" y="112" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1096" y="155" width="48" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0hwzdl4_di" bpmnElement="Flow_0hwzdl4">
+        <di:waypoint x="238" y="130" />
+        <di:waypoint x="500" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bch4zv_di" bpmnElement="Flow_0bch4zv">
+        <di:waypoint x="600" y="130" />
+        <di:waypoint x="650" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0h1ccaa_di" bpmnElement="Flow_0h1ccaa">
+        <di:waypoint x="750" y="130" />
+        <di:waypoint x="800" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0t544aj_di" bpmnElement="Flow_0t544aj">
+        <di:waypoint x="900" y="130" />
+        <di:waypoint x="950" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f7rmo1_di" bpmnElement="Flow_0f7rmo1">
+        <di:waypoint x="1050" y="130" />
+        <di:waypoint x="1102" y="130" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

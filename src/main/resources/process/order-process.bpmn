@@ -1,0 +1,34 @@
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  id="Definitions_1"
+                  targetNamespace="http://bpmn.io/schema/bpmn">
+
+  <bpmn:process id="order_process" name="Order Process" isExecutable="true">
+
+    <bpmn:startEvent id="StartEvent_Order" name="شروع سفارش">
+      <bpmn:outgoing>Flow1</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:userTask id="Task_ConfirmOrder" name="تأیید سفارش" camunda:assignee="operator">
+      <bpmn:incoming>Flow1</bpmn:incoming>
+      <bpmn:outgoing>Flow2</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <bpmn:serviceTask id="Task_SendNotification" name="ارسال پیامک" camunda:class="com.example.workflow.SendSmsDelegate">
+      <bpmn:incoming>Flow2</bpmn:incoming>
+      <bpmn:outgoing>Flow3</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="EndEvent_Order" name="پایان">
+      <bpmn:incoming>Flow3</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow1" sourceRef="StartEvent_Order" targetRef="Task_ConfirmOrder"/>
+    <bpmn:sequenceFlow id="Flow2" sourceRef="Task_ConfirmOrder" targetRef="Task_SendNotification"/>
+    <bpmn:sequenceFlow id="Flow3" sourceRef="Task_SendNotification" targetRef="EndEvent_Order"/>
+
+  </bpmn:process>
+</bpmn:definitions>
