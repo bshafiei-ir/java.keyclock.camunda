@@ -63,5 +63,4 @@ public class LoanProcessController {
         taskService.complete(taskId, variables);
         return ResponseEntity.ok("Task " + taskId + " completed successfully.");
     }
-
 }

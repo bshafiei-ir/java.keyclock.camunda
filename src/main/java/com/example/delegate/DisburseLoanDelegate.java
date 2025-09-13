@@ -4,13 +4,11 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
 
-@Component("checkCreditScoreDelegate")
-public class CheckCreditScoreDelegate implements JavaDelegate {
+@Component("disburseLoanDelegate")
+public class DisburseLoanDelegate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {        
-        int creditScore = (int) (Math.random() * 1000);
-        System.out.println("Calculated Credit Score: " + creditScore);
-        execution.setVariable("creditScore", creditScore);
+        System.out.println("disburse load delegate is executed...");        
     }
 }
