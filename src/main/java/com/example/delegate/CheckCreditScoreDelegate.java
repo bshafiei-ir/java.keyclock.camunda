@@ -4,7 +4,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
 
-@Component("checkCreditScoreDelegate")
+@Component("test2")
 public class CheckCreditScoreDelegate implements JavaDelegate {
 
     @Override
