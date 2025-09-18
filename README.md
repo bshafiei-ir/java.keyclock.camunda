@@ -1,6 +1,15 @@
 این پروژه رو جهت آشنایی خودم با Camunda, keyclock, state machine , saga orchestration پیاده سازی کردم
 در طول مراحل از chat gpt هم برای طی کردن مراحل کمک گرفتم که در قالب یه فایل word که به مرور کامل میکنم توضیح دادم.
 
+کارهایی که تا الان انجام شدن:
+1- بالا آوردن keyclock و camunda با داکر
+2- ایجاد پروژه spring-boot
+3- اتصال پروژه spring-boot به keyclock و authorize کردن endpoint ها با keyclock
+4- فراخوانی سرویس ایجاد token با postman و استفاده از token ها برای فراخوانی endpoint های پروژه
+5- اتصال پروژه با camunda
+6- طراحی یک bmpn با camunda modeler desktop و deoply کردن در پروژه
+7- تعریف delegate برای آنها
+8- تعریف یک exlusive gateway برای تصمیم گیری در bpmn
 
 گام های بعدی
 1- میکروسرویس
